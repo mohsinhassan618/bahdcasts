@@ -1,7 +1,11 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mohsin.hassan
- * Date: 9/17/2018
- * Time: 3:12 PM
- */
+
+return [
+
+    'administrators' => [
+        'kati@frantz.com',
+        'mohsin.hassan618@gmail.com',
+        'admin@admin.com'
+    ]
+
+];

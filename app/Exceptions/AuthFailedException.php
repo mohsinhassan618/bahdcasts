@@ -1,15 +1,17 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mohsin.hassan
- * Date: 9/3/2018
- * Time: 5:23 PM
- */
-
-namespace App\Exceptions;
 
 
-class AuthFailedException
+namespace Bahdcasts\Exceptions;
+
+
+use Exception;
+use function response;
+
+class AuthFailedException extends Exception
 {
-
+    public function render(){
+        return response()->json([
+            'message' => "These credentials do not match our records."
+        ],422);
+    }
 }

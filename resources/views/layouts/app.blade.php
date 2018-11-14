@@ -46,9 +46,28 @@
                         <li class="nav-item">
                             <a class="nav-link active" href="">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="javascript:;" data-toggle="modal" data-target="#LoginModel" >Login</a>
-                        </li>
+
+
+                        @if( auth()->check())
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('series.index') }}">All Series </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('series.create') }}">Create Series </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href=""  > Hey {{ auth()->user()->name }}</a>
+                            </li>
+
+                        @else
+                            <li class="nav-item">
+                                <a class="nav-link" href="javascript:;" data-toggle="modal" data-target="#LoginModel" >Login</a>
+                            </li>
+                        @endif
+
                     </ul>
                 </div>
 
@@ -87,7 +106,11 @@
         </footer>
         <!-- END Footer -->
 
+        <vue-noty></vue-noty>
+
+        @if( !auth()->check())
         <vue-login></vue-login>
+        @endif
 
     </div>
 

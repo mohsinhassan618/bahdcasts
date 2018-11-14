@@ -7,7 +7,14 @@
                 <h5 class="text-uppercase text-center">Login</h5>
                 <br><br>
 
-                <form>
+                <form v-on:submit.prevent>
+
+                    <ul class="list-group alert alert-danger" v-if="errors.length > 0 ">
+                        <li class="list-group-item" v-for="error in errors" :key="errors.indexOf(error)">
+                            {{ error }}
+                        </li>
+                    </ul>
+
                     <div class="form-group">
                         <input type="email" class="form-control" placeholder="Email" v-model="email">
                     </div>
@@ -45,6 +52,8 @@
 </template>
 
 <script>
+
+    import axios from 'axios'
     export default {
 
         data(){
@@ -52,6 +61,8 @@
                 email: "",
                 password: "",
                 remember: true,
+                loading:false,
+                errors:[]
             }
         },
 
@@ -64,18 +75,28 @@
                 }
             },
             attemptLogin(){
+
+                this.loading = true;
+
                 axios.post('/login',{
                     email: this.email ,password:this.password ,remember:this.remember
+                }).then( resp => {
+                    //console.log(resp)
+                    location.reload();
+                } ).catch(error => {
+                    this.loading = false;
+                    if(error.response.status == 422) {
+                        this.errors.push("We couldn't verify your account details.");
+                    }else {
+                        this.errors.push("Something went wrong , Please refresh and try again.");
+                    }
                 })
-
-
             }
-
         },
 
         computed: {
             isValidLoginForm(){
-                return this.emailIsValid() && this.password
+                return this.emailIsValid() && this.password && !this.loading
             }
         }
     }

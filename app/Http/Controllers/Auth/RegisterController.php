@@ -1,11 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace Bahdcasts\Http\Controllers\Auth;
 
-use App\User;
-use App\Http\Controllers\Controller;
+use Bahdcasts\User;
+use Bahdcasts\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use function str_random;
+use function str_slug;
+use Mail;
+use Bahdcasts\Mail\ConfirmYourEmail;
+
+
 
 class RegisterController extends Controller
 {
@@ -50,7 +57,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+            'password' => 'required|string|min:6',
         ]);
     }
 
@@ -58,14 +65,32 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \App\User
+     * @return \Bahdcasts\User
      */
     protected function create(array $data)
     {
-        return User::create([
+
+        $user = User::create([
             'name' => $data['name'],
+            'username'  =>  str_slug($data['name']) ,
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'confirm_token' => str_random(25)
+
         ]);
+
+        return $user;
     }
+
+
+    protected function registered(Request $request, $user)
+    {
+
+        Mail::to($user)->send(new ConfirmYourEmail($user));
+
+            return redirect($this->redirectPath());
+
+    }
+
+
 }

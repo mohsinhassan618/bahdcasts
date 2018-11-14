@@ -1,13 +1,17 @@
 <?php
 
-namespace App;
+namespace Bahdcasts;
 
+use Bahdcasts\Entities\Learning;
+use function config;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use function in_array;
+use Redis;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable,Learning;
 
     /**
      * The attributes that are mass assignable.
@@ -15,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name','username', 'email', 'password','confirm_token'
     ];
 
     /**
@@ -26,4 +30,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+
 }
+

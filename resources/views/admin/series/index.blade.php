@@ -1,13 +1,40 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
+@extends('layouts.app')
 
-</body>
-</html>
+@section('header')
+    <!-- Header -->
+    <header class="header header-inverse" style="background-color: #c2b2cd;">
+        <div class="container text-center">
+
+            <div class="row">
+                <div class="col-12 col-lg-8 offset-lg-2">
+
+                    <h1>{{ $series->title }}</h1>
+                    <p class="fs-20 opacity-70">Customize your series lesson</p>
+
+                </div>
+            </div>
+
+        </div>
+    </header>
+    <!-- END Header -->
+@endsection
+
+@section("content")
+
+
+
+    <div class="section section-inverse">
+        <div class="container">
+
+            <div class="row gap-y">
+                <div class="col-12 ">
+                    {{ $series->title }}
+                    <vue-lessons   series_id="{{ $series->id }}"  default_lessons="{{ $series->lessons }}"  > </vue-lessons>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+@endsection
