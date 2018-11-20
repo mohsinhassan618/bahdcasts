@@ -23,6 +23,8 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    @yield('header-script')
+
 </head>
 <body>
     <div id="app">
@@ -50,6 +52,7 @@
 
                         @if( auth()->check())
 
+                            @admin
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('series.index') }}">All Series </a>
                             </li>
@@ -57,6 +60,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('series.create') }}">Create Series </a>
                             </li>
+                            @endadmin
 
                             <li class="nav-item">
                                 <a class="nav-link" href=""  > Hey {{ auth()->user()->name }}</a>

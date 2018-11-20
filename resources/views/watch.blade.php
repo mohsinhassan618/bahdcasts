@@ -3,16 +3,12 @@
 @section('header')
     <header class="header header-inverse" style="background-color: #9ac29d">
         <div class="container text-center">
-
             <div class="row">
                 <div class="col-12 col-lg-8 offset-lg-2">
-
                     <h1>{{ $lesson->title }}</h1>
                     <p class="fs-20 opacity-70">{{  $series->title }}</p>
-
                 </div>
             </div>
-
         </div>
     </header>
 @endsection
@@ -32,13 +28,14 @@ $prevLesson = $lesson->getPrevLesson();
                                 @endif
                     ></vue-player>
 
-                    @if($nextLesson)
+                    @if($nextLesson->id != $lesson->id)
                         <a href="{{ route('series.watch',[ 'series' => $series->slug , 'lesson' => $nextLesson ]) }}" class="btn btn-info">Next Lesson</a>
                     @endif
 
-                    @if($prevLesson)
+                    @if($prevLesson->id != $lesson->id)
                     <a href="{{ route('series.watch',[ 'series' => $series->slug , 'lesson' => $prevLesson ])  }}" class="btn btn-info">Previous Lesson</a>
                     @endif
+
                 </div>
 
                 <div class="col-12">
@@ -57,7 +54,6 @@ $prevLesson = $lesson->getPrevLesson();
                         @endforeach
                     </ul>
                 </div>
-
             </div>
         </div>
     </div>

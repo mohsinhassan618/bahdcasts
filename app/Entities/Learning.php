@@ -97,4 +97,16 @@ trait Learning {
         return 'username';
     }
 
+    public function getNextLessonToWatch(Series $series){
+
+
+        $lessonIds = $this->getCompletedLessonsForASeries($series);
+
+        $lessonId  = end($lessonIds);
+
+        return Lesson::find($lessonId)->getNextLesson();
+
+
+    }
+
 }

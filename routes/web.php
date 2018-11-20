@@ -18,19 +18,13 @@ use Bahdcasts\User;
 
 
 
+Auth::routes();
 
 Route::get('/', 'FrontendController@welcome');
 
 Route::get('/email', function () {
     return new \Bahdcasts\Mail\ConfirmYourEmail();
 });
-
-//Route::get('{series_by_id}', function (\Bahdcasts\Series $series){
-//    dd($series);
-//});
-
-
-Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -42,15 +36,27 @@ Route::get('register/confirm',"ConfirmEmailController@index")->name('confirm-ema
 
 Route::get('/series/{series}','FrontendController@series')->name('series');
 
-Route::get('/watch-series/{series}','WatchSeriesController@index')->name('series.learning');
-
 Route::get('/series/{series}/lesson/{lesson}','WatchSeriesController@showLesson')->name('series.watch');
 
-Route::get('/test',function(){
-   //$user = \Bahdcasts\User::where('username','edwin-daiz')->get();
+Route::get('/profile/{user}','ProfilesController@index');
 
-    $serires = Series::find(1);
-    dd($serires->lessons);
+Route::middleware('auth')->group(function (){
+    Route::post('/series/complete-lesson/{lesson}','WatchSeriesController@completeLesson');
+    Route::get('/watch-series/{series}','WatchSeriesController@index')->name('series.learning');
+    Route::get('/subscribe','SubscriptionsController@showSubscriptionForm');
+    Route::post('/subscribe','SubscriptionsController@subscribe');
+    Route::post('/subscription/change','SubscriptionsController@change')->name('subscriptions.change');
+    Route::post('/card/update','SubscriptionsController@updateCard');
+});
+
+//Route::get('{series_by_id}', function (\Bahdcasts\Series $series){
+//    dd($series);
+//});
+
+Route::get('/test',function(){
+    //$user = \Bahdcasts\User::where('username','edwin-daiz')->get();
+//    $serires = Series::find(1);
+//    dd($serires->lessons);
 
     // User
     $user = factory(User::class)->create();
@@ -91,13 +97,5 @@ Route::get('/testredis',function (){
 
     // dd(Redis::smembers('frontend-framework'));
 
-
 });
-
-Route::post('/series/complete-lesson/{lesson}','WatchSeriesController@completeLesson');
-
-Route::get('/profile/{user}','ProfilesController@index');
-
-
-
 

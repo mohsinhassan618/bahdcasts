@@ -20,6 +20,7 @@ class CreateLessonsTable extends Migration
             $table->text('description');
             $table->integer('episode_number');
             $table->integer('video_id');
+            $table->boolean('premium')->default(0);
             $table->timestamps();
         });
     }

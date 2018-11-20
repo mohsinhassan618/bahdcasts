@@ -23,9 +23,8 @@ class Administrator
             }else {
                 session()->flash('error', "You are not authorized to perform this action");
                 return redirect('/');
-
             }
-        }else {
+        } else {
             return redirect('/');
 
         }

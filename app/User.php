@@ -7,11 +7,14 @@ use function config;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use function in_array;
+use Laravel\Cashier\Billable;
 use Redis;
 
 class User extends Authenticatable
 {
-    use Notifiable,Learning;
+    use Notifiable,Learning, Billable;
+
+    protected $with = ['subscriptions'];
 
     /**
      * The attributes that are mass assignable.
