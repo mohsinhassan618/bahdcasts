@@ -6,6 +6,7 @@ use Bahdcasts\Exceptions\AuthFailedException;
 use Bahdcasts\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use function redirect;
 use function resource_path;
 use function response;
 use function session;
@@ -43,9 +44,6 @@ class LoginController extends Controller
     }
 
 
-
-
-
     /**
      * The user has been authenticated.
      *
@@ -56,9 +54,14 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user)
     {
         //
-
         session()->flash('success','Successfully logged in');
-        return response()->json([ 'status' => 'ok']);
+
+        if($request->ajax()){
+            return response()->json([ 'status' => 'ok']);
+        }
+
+
+        return redirect('/');
     }
 
     protected function sendFailedLoginResponse(Request $request)

@@ -1,5 +1,8 @@
 @extends('layouts.app')
-
+@php
+    $user = auth()->user();
+    $userPlan = isset($user->subscriptions->first()->stripe_plan) ? $user->subscriptions->first()->stripe_plan : '';
+@endphp
 @section('header')
     <header class="header header-inverse" style="background-color: #1ac28d">
         <div class="container text-center">
@@ -7,8 +10,7 @@
             <div class="row">
                 <div class="col-12 col-lg-8 offset-lg-2">
 
-                    <h1>Kati frantz</h1>
-                    <p class="fs-20 opacity-70">kati-frantz</p>
+                    <h1>{{ $user->name }}</h1>
                     <br>
                     <h1>{{ $user->getTotalNumberOfCompletedLessons() }}</h1>
                     <p class="fs-20 opacity-70">Lessons completed</p>
@@ -108,14 +110,19 @@
                         <div class="tab-pane fade" id="messages-2">
                             <form action="{{ route('subscriptions.change') }}" method="post">
                                 {{ csrf_field() }}
-                                @php
-                                $user = auth()->user();
-                                $userPlan = $user->subscriptions->first()->stripe_plan;
-                                @endphp
+
                                 <h5 class="text-center">
-                                    Your current plan: <span class="badge badge-success">{{ $userPlan }}</span>
+                                    Your current plan:
+                                    @if(!empty($userPlan))
+                                        <span class="badge badge-success">{{ $userPlan }}</span>
+                                    @else
+                                        <span class="badge badge-danger">No Plan</span>
+                                    @endif
+
                                 </h5>
                                 <br>
+
+                                @if(!empty($userPlan))
 
                                     <select name="plan" class="form-control">
                                         <option value="monthly-plan" @if($userPlan == 'monthly-plan') selected @endif>Monthly</option>
@@ -126,12 +133,15 @@
                                         <button class="btn btn-primary" type="submit">Change plan</button>
                                     </p>
 
+                                @endif
+
 
                             </form>
                         </div>
 
                         <div class="tab-pane fade" id="settings-2">
                                 <div class="row">
+                                    @if(isset($user->card_brand))
                                         <div class="col-sm-12">
                                         <h2 class="text-center">
                                             Your current card: <span class="badge badge-sm badge-primary">{{ $user->card_brand }}: {{ $user->card_last_four }}</span>
@@ -141,6 +151,11 @@
                                             <vue-update-card email="{{ $user->email }}"></vue-update-card>
                                         </p>
                                     </div>
+                                    @else
+                                        <div class="col-sm-12">
+                                            <p class="text-center">No Card</p>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
 

@@ -47,6 +47,10 @@ class Kernel extends HttpKernel
         'admin' => [
            'web',
             \Bahdcasts\Http\Middleware\Administrator::class
+        ],
+
+        'profile' => [
+            \Bahdcasts\Http\Middleware\profile::class
         ]
     ];
 

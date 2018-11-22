@@ -38,7 +38,11 @@ Route::get('/series/{series}','FrontendController@series')->name('series');
 
 Route::get('/series/{series}/lesson/{lesson}','WatchSeriesController@showLesson')->name('series.watch');
 
-Route::get('/profile/{user}','ProfilesController@index');
+Route::middleware('profile')->group(function(){
+    Route::get('/profile/{user}','ProfilesController@index');
+});
+
+
 
 Route::middleware('auth')->group(function (){
     Route::post('/series/complete-lesson/{lesson}','WatchSeriesController@completeLesson');
@@ -46,7 +50,7 @@ Route::middleware('auth')->group(function (){
     Route::get('/subscribe','SubscriptionsController@showSubscriptionForm');
     Route::post('/subscribe','SubscriptionsController@subscribe');
     Route::post('/subscription/change','SubscriptionsController@change')->name('subscriptions.change');
-    Route::post('/card/update','SubscriptionsController@updateCard');
+    Route::post('/card/update','ProfilesController@updateCard');
 });
 
 //Route::get('{series_by_id}', function (\Bahdcasts\Series $series){
