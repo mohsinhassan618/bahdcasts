@@ -3,7 +3,7 @@
 @section('header')
 
     <!-- Header -->
-    <header class="header header-inverse h-fullscreen pb-80" data-parallax="{{ asset('img/bg-man.jpg') }}" data-overlay="8">
+    <header class="header header-inverse h-fullscreen pb-80" data-parallax="{{ secure_asset('img/bg-man.jpg') }}" data-overlay="8">
         <div class="container text-center">
 
             <div class="row h-full">

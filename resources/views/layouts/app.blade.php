@@ -11,14 +11,14 @@
     <title>The SaaS - Header Image</title>
 
     <!-- Styles -->
-    <link href="{{ asset('css/core.min.css') }}"     rel="stylesheet">
-    <link href="{{ asset('css/thesaas.min.css') }}"  rel="stylesheet">
-    <link href="{{ asset('css/style.css') }}"        rel="stylesheet">
+    <link href="{{ secure_asset('css/core.min.css') }}"     rel="stylesheet">
+    <link href="{{ secure_asset('css/thesaas.min.css') }}"  rel="stylesheet">
+    <link href="{{ secure_asset('css/style.css') }}"        rel="stylesheet">
     {{--<link href="{{ asset('css/app.css') }}"          rel="stylesheet">--}}
 
     <!-- Favicons -->
-    <link rel="apple-touch-icon" href="{{ asset('img/apple-touch-icon.png') }}">
-    <link rel="icon" href="{{ asset('img/favicon.png') }}">
+    <link rel="apple-touch-icon" href="{{ secure_asset('img/apple-touch-icon.png') }}">
+    <link rel="icon" href="{{ secure_asset('img/favicon.png') }}">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -37,8 +37,8 @@
                 <div class="topbar-left">
                     <button class="topbar-toggler">&#9776;</button>
                     <a class="topbar-brand" href="">
-                        <img class="logo-default" src="{{ asset('img/logo.png') }}" alt="logo">
-                        <img class="logo-inverse" src="{{ asset('img/logo-light.png') }}" alt="logo">
+                        <img class="logo-default" src="{{ secure_asset('img/logo.png') }}" alt="logo">
+                        <img class="logo-inverse" src="{{ secure_asset('img/logo-light.png') }}" alt="logo">
                     </a>
                 </div>
 
@@ -119,10 +119,10 @@
     </div>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('js/core.min.js') }}"></script>
-    <script src="{{ asset('js/thesaas.min.js') }}"></script>
-    <script src="{{ asset('js/script.js') }}"></script>
+    <script src="{{ secure_asset('js/app.js') }}"></script>
+    <script src="{{ secure_asset('js/core.min.js') }}"></script>
+    <script src="{{ secure_asset('js/thesaas.min.js') }}"></script>
+    <script src="{{ secure_asset('js/script.js') }}"></script>
     @yield('footer-scripts')
 </body>
 </html>
